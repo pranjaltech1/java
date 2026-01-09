@@ -1,7 +1,13 @@
 package practice;
+
 public class Cat {
 
-    public static void myMethod(){
-        System.out.println("my method from another class ");
+   static String name;
+    int age;
+
+
+   public static void meow(){
+        System.out.println("meowwww");
     }
 }
+//non static methods and variables can be called without creating object
