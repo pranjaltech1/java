@@ -2,11 +2,8 @@ package practice;
 import java.net.SocketTimeoutException;
 import java.security.spec.RSAOtherPrimeInfo;
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
 import java.util.function.Predicate;
-
 
 
 public class HelloJava implements MyInterface {
@@ -34,7 +31,32 @@ public class HelloJava implements MyInterface {
         //consumer
         Consumer<Integer> c1= x-> System.out.println(x);
         c1.accept(10);
+        //BiPredicate Interface 
+        BiPredicate<Integer,Integer> bp1=(x,y)->x+y==20;
+        System.out.println(bp1.test(10,10));
 
+        //Function Interface
+        Function<String,Integer> f=(str)->str.length();
+        System.out.println(f.apply("vyomm"));
+        //BiFunction Interface
+        BiFunction<Integer,Integer,Integer> bf1=(w,Z)->w*Z;
+        System.out.println(bf1.apply(10,2));
+
+        //consumer interface
+        Consumer<String> c=x-> System.out.println(x);
+        c.accept("avniiii");
+        //biconsumer interface
+        BiConsumer<Integer,Integer> bc=(x,y)-> System.out.println(x+y);
+        bc.accept(4,5);
+
+        Supplier<Integer> ss=()->1;
+        System.out.println(ss.get());
+
+        UnaryOperator<Integer> unaryOperator=x->x+x;
+        System.out.println(unaryOperator.apply(10));
+
+        BinaryOperator<String> binaryOperator=(str3,str2)->str3+str2;
+        System.out.println(binaryOperator.apply("hey","shambhu"));
     }
     //abstract method
     @Override
