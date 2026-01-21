@@ -4,10 +4,24 @@ import java.security.spec.RSAOtherPrimeInfo;
 import java.util.*;
 import java.util.function.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 
 public class HelloJava implements MyInterface {
+
+    public static void print(String s){
+        System.out.println(s);
+    }
+
     public static void main(String[] arrr) {
+        //method refernece
+        List<String> students=Arrays.asList("avni","Shambhu","Viha");
+        students.forEach(HelloJava::print);//refers to test method inside Hellojava class
+
+        //constructor referenece
+        List<String> names=Arrays.asList("avni","Shambhu","Viha");
+        List<Student> studentss=names.stream().map(Student::new).collect(Collectors.toList());
+
 
         //function interface
 
@@ -54,9 +68,12 @@ public class HelloJava implements MyInterface {
 
         UnaryOperator<Integer> unaryOperator=x->x+x;
         System.out.println(unaryOperator.apply(10));
-
+        UnaryOperator<Integer> u=x->x*x*x;
+        System.out.println(u.apply(2));
         BinaryOperator<String> binaryOperator=(str3,str2)->str3+str2;
         System.out.println(binaryOperator.apply("hey","shambhu"));
+        BinaryOperator<String> b=(str1,str2)->str1+str2;
+        System.out.println(b.apply("ram","lal"));
     }
     //abstract method
     @Override
