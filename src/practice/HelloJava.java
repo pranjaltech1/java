@@ -1,90 +1,60 @@
 package practice;
-import java.net.SocketTimeoutException;
-import java.security.spec.RSAOtherPrimeInfo;
-import java.util.*;
-import java.util.function.*;
-import java.util.function.Predicate;
+import java.sql.SQLOutput;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-
-public class HelloJava implements MyInterface {
-
-    public static void print(String s){
-        System.out.println(s);
-    }
-
+public class HelloJava  {
     public static void main(String[] arrr) {
-        //method refernece
-        List<String> students=Arrays.asList("avni","Shambhu","Viha");
-        students.forEach(HelloJava::print);//refers to test method inside Hellojava class
+        System.out.println("Streams");
 
-        //constructor referenece
-        List<String> names=Arrays.asList("avni","Shambhu","Viha");
-        List<Student> studentss=names.stream().map(Student::new).collect(Collectors.toList());
+        //to create stream from list
+        List<String> fruit=Arrays.asList("apple","banana","cherry");
+        Stream<String> fruits=fruit.stream();
+        //to create stream from arrays
+        String[] flower={"rose","lily","lotus"};
+        Stream<String> flowers=Arrays.stream(flower);
+        //to create directly comma separated stream
+        Stream.of("12,34,45,67,78");
 
 
-        //function interface
 
-        Function<String, Integer> function1=x->x.length();
-        System.out.println(function1.apply("vinit"));
+        //to print even numbers using streams
+        List<Integer>  nums=Arrays.asList(2,3,4,2,6,8,13,24,34,56,75,87);
+        List<Integer> EvenList=nums
+                .stream()
+                .filter(x->x%2==0)
+                .collect(Collectors.toList());
+        System.out.println(EvenList);
+        //divide that even stream by 2
+        List<Integer> EvenDivide =EvenList
+                .stream()
+                .map(x->x/2)
+                .distinct()
+                .sorted()
+                .limit(50)
+                .collect(Collectors.toList());
+        System.out.println(EvenDivide);
 
-        //consumer interface
-        Consumer<String> consumer =s-> System.out.println(s);
-        consumer.accept("Vipul");
-        //supplier interface
-        Supplier<Integer> s1=()->1;
-        System.out.println(s1.get());
-        //predicate-to check if condition is true or false
-        //test() - abstract method
-        Predicate<Integer> p1=(x)->x%2==0;
-        System.out.println(p1.test(5));
-        //function-kahitari kaam krun deto
-        Function<Integer,Integer> f1=(x)->x*x;
-        System.out.println(f1.apply(2));
+        //print numbers  from 1 to 100, only even numbers
+        List<Integer> numbers=Stream.iterate(0,x->x+1)
+                .limit(100)
+                .skip(1)
+                .filter(x->x%2==0)
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
+        System.out.println(numbers);
 
-        //consumer
-        Consumer<Integer> c1= x-> System.out.println(x);
-        c1.accept(10);
-        //BiPredicate Interface 
-        BiPredicate<Integer,Integer> bp1=(x,y)->x+y==20;
-        System.out.println(bp1.test(10,10));
+        //min(),max(),count()
+        //count() returns long
+        //min(),max() returns optional
+        Integer integer=Stream.iterate(0,x->x+1).limit(100).map(x->x/20).distinct().peek(System.out::println).max((a,b)->a-b).get();
+        System.out.println(integer);
 
-        //Function Interface
-        Function<String,Integer> f=(str)->str.length();
-        System.out.println(f.apply("vyomm"));
-        //BiFunction Interface
-        BiFunction<Integer,Integer,Integer> bf1=(w,Z)->w*Z;
-        System.out.println(bf1.apply(10,2));
-
-        //consumer interface
-        Consumer<String> c=x-> System.out.println(x);
-        c.accept("avniiii");
-        //biconsumer interface
-        BiConsumer<Integer,Integer> bc=(x,y)-> System.out.println(x+y);
-        bc.accept(4,5);
-
-        Supplier<Integer> ss=()->1;
-        System.out.println(ss.get());
-
-        UnaryOperator<Integer> unaryOperator=x->x+x;
-        System.out.println(unaryOperator.apply(10));
-        UnaryOperator<Integer> u=x->x*x*x;
-        System.out.println(u.apply(2));
-        BinaryOperator<String> binaryOperator=(str3,str2)->str3+str2;
-        System.out.println(binaryOperator.apply("hey","shambhu"));
-        BinaryOperator<String> b=(str1,str2)->str1+str2;
-        System.out.println(b.apply("ram","lal"));
     }
-    //abstract method
-    @Override
-    public void sayHello() {
-        System.out.println("hello");
-    }
-    //default method
-    @Override
-    public void say() {
-        MyInterface.super.say();
-    }
+
 
 
 }
